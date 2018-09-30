@@ -1,5 +1,5 @@
 {
-    "name": "swipestripe/accounts",
+    "name": "swipestripe/swipestripe-accounts",
     "description": "Customer accounts module for SwipeStripe.",
     "type": "silverstripe-vendormodule",
     "authors": [
@@ -10,6 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=7.1",
         "swipestripe/swipestripe": "5.0.x-dev",
         "silverstripe/silverstripe-omnipay": "dev-master as 3.x-dev"
     },
