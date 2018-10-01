@@ -10,6 +10,7 @@ use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Security\IdentityStore;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
+use SwipeStripe\Accounts\AccountCreationEmail;
 use SwipeStripe\Order\Checkout\CheckoutForm;
 
 /**
@@ -81,6 +82,8 @@ class CheckoutFormExtension extends Extension
         $member->Email = $data['CustomerEmail'];
         $member->setName($data['CustomerName']);
         $member->changePassword($data[static::ACCOUNT_PASSWORD_FIELD]['_Password'], false);
+
+        $member->setField(AccountCreationEmail::SEND_EMAIL_FLAG, true);
         $member->write();
 
         return $member;
