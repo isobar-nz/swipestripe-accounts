@@ -9,3 +9,7 @@ SwipeStripe\Order\Checkout\CheckoutForm:
 SwipeStripe\Order\Checkout\CheckoutFormValidator:
   extensions:
   - SwipeStripe\Accounts\Checkout\CheckoutFormValidatorExtension
+
+SilverStripe\Security\Member:
+  extensions:
+  - SwipeStripe\Accounts\MemberExtension
