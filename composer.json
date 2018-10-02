@@ -9,6 +9,7 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=7.1",
         "swipestripe/swipestripe": "5.0.x-dev",
@@ -58,6 +59,7 @@
         }
     },
     "require-dev": {
-        "php-http/guzzle6-adapter": "^1.1"
+        "php-http/guzzle6-adapter": "^1.1",
+        "silverstripe/recipe-cms": "^4.2"
     }
 }
