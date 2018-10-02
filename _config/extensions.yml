@@ -17,3 +17,7 @@ SilverStripe\Security\Member:
 SwipeStripe\Order\Order:
   extensions:
   - SwipeStripe\Accounts\Order\OrderExtension
+
+SwipeStripe\Order\ViewOrderPage:
+  extensions:
+  - SwipeStripe\Accounts\Order\ViewOrderPageExtension
