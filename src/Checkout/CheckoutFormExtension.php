@@ -84,7 +84,7 @@ class CheckoutFormExtension extends Extension
         $member->Email = $data['CustomerEmail'];
         $member->setName($data['CustomerName']);
         $member->changePassword($data[static::ACCOUNT_PASSWORD_FIELD]['_Password'], false);
-        $member->DefaultBillingAddress->copyFrom($this->owner->getCart()->BillingAddress);
+        $member->DefaultBillingAddress->copyFromArray($data, 'BillingAddress');
 
         $member->setField(AccountCreationEmail::SEND_EMAIL_FLAG, true);
         $member->write();
