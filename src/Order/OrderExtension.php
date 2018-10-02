@@ -21,12 +21,17 @@ class OrderExtension extends DataExtension
      */
     public function populateDefaults()
     {
-        if ($this->owner->MemberID || !Security::getCurrentUser()) {
+        $this->populateCustomerDefaults(Security::getCurrentUser());
+    }
+
+    /**
+     * @param null|Member|MemberExtension $member
+     */
+    public function populateCustomerDefaults(?Member $member = null): void
+    {
+        if ($member === null || $this->owner->MemberID === $member->ID) {
             return;
         }
-
-        /** @var Member|MemberExtension $member */
-        $member = Security::getCurrentUser();
 
         $this->owner->MemberID = $member->ID;
         $this->owner->CustomerName = $member->getName();
