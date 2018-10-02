@@ -14,9 +14,25 @@ use SwipeStripe\Order\Order;
  * Class OrderExtension
  * @package SwipeStripe\Accounts\Order
  * @property Order|OrderExtension $owner
+ * @property int $MemberID
+ * @method Member Member()
  */
 class OrderExtension extends DataExtension
 {
+    /**
+     * @var array
+     */
+    private static $has_one = [
+        'Member' => Member::class,
+    ];
+
+    /**
+     * @var array
+     */
+    private static $searchable_fields = [
+        'Member.Email',
+    ];
+
     /**
      *
      */
