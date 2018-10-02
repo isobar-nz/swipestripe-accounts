@@ -5,6 +5,7 @@ namespace SwipeStripe\Accounts\Order;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\Customer\MemberExtension;
 use SwipeStripe\Order\Order;
@@ -37,5 +38,28 @@ class OrderExtension extends DataExtension
         $this->owner->CustomerName = $member->getName();
         $this->owner->CustomerEmail = $member->Email;
         $this->owner->BillingAddress->copyFrom($member->DefaultBillingAddress);
+    }
+
+    /**
+     * @param null|Member $member
+     * @return bool|null
+     */
+    public function canViewOrderPage(?Member $member = null): ?bool
+    {
+        $member = $member ?? Security::getCurrentUser();
+
+        if ($this->owner->MemberID) {
+            if ($member !== null && $member->ID === $this->owner->MemberID) {
+                // Allow member to view their own order
+                return true;
+            }
+
+            if ($member === null || !Permission::checkMember($member, 'ADMIN')) {
+                // Guests and non-admins don't have permission to view another account's orders
+                return false;
+            }
+        }
+
+        return null;
     }
 }

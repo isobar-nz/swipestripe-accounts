@@ -21,3 +21,7 @@ SwipeStripe\Order\Order:
 SwipeStripe\Order\ViewOrderPage:
   extensions:
   - SwipeStripe\Accounts\Order\ViewOrderPageExtension
+
+SwipeStripe\Order\ViewOrderPageController:
+  extensions:
+  - SwipeStripe\Accounts\Order\ViewOrderPageControllerExtension
