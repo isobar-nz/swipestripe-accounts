@@ -5,14 +5,23 @@ namespace SwipeStripe\Accounts;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
+use SwipeStripe\ORM\FieldType\DBAddress;
 
 /**
  * Class MemberExtension
  * @package SwipeStripe\Accounts
  * @property Member|MemberExtension $owner
+ * @property DBAddress $DefaultBillingAddress
  */
 class MemberExtension extends DataExtension
 {
+    /**
+     * @var array
+     */
+    private static $db = [
+        'DefaultBillingAddress' => DBAddress::class,
+    ];
+
     /**
      *
      */
