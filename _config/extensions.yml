@@ -12,7 +12,7 @@ SwipeStripe\Order\Checkout\CheckoutFormValidator:
 
 SilverStripe\Security\Member:
   extensions:
-  - SwipeStripe\Accounts\MemberExtension
+  - SwipeStripe\Accounts\Customer\MemberExtension
 
 SwipeStripe\Order\Order:
   extensions:

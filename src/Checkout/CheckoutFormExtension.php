@@ -11,7 +11,7 @@ use SilverStripe\Security\IdentityStore;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\AccountCreationEmail;
-use SwipeStripe\Accounts\MemberExtension;
+use SwipeStripe\Accounts\Customer\MemberExtension;
 use SwipeStripe\Order\Checkout\CheckoutForm;
 
 /**

@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace SwipeStripe\Accounts;
+namespace SwipeStripe\Accounts\Customer;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
+use SwipeStripe\Accounts\AccountCreationEmail;
 use SwipeStripe\ORM\FieldType\DBAddress;
 
 /**

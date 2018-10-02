@@ -6,7 +6,7 @@ namespace SwipeStripe\Accounts\Order;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
-use SwipeStripe\Accounts\MemberExtension;
+use SwipeStripe\Accounts\Customer\MemberExtension;
 use SwipeStripe\Order\Order;
 
 /**
