@@ -1,10 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace SwipeStripe\Accounts;
+namespace SwipeStripe\Accounts\Customer;
 
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\Security\Member;
+use SwipeStripe\Accounts\AccountCreationEmail;
+use SwipeStripe\Order\Order;
 use SwipeStripe\ORM\FieldType\DBAddress;
 
 /**
@@ -12,6 +15,7 @@ use SwipeStripe\ORM\FieldType\DBAddress;
  * @package SwipeStripe\Accounts
  * @property Member|MemberExtension $owner
  * @property DBAddress $DefaultBillingAddress
+ * @method HasManyList|Order[] Orders()
  */
 class MemberExtension extends DataExtension
 {
@@ -20,6 +24,13 @@ class MemberExtension extends DataExtension
      */
     private static $db = [
         'DefaultBillingAddress' => DBAddress::class,
+    ];
+
+    /**
+     * @var array
+     */
+    private static $has_many = [
+        'Orders' => Order::class,
     ];
 
     /**

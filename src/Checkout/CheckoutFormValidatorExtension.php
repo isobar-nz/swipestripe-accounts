@@ -49,7 +49,7 @@ class CheckoutFormValidatorExtension extends Extension
 
         if (Member::get()->find('Email', $data['CustomerEmail']) !== null) {
             $loginUrl = Controller::join_links(Security::login_url(),
-                sprintf('?BackURL=%1$s', $form->getController()->Link()));
+                sprintf('?BackURL=%1$s', rawurlencode($form->getController()->Link())));
 
             $this->owner->validationError('CustomerEmail', _t(self::class . '.EMAIL_TAKEN',
                 'An account with that email already exists. Do you want to <a href="{login_url}">login</a> instead?', [

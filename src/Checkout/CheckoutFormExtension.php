@@ -11,8 +11,10 @@ use SilverStripe\Security\IdentityStore;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\AccountCreationEmail;
-use SwipeStripe\Accounts\MemberExtension;
+use SwipeStripe\Accounts\Customer\MemberExtension;
+use SwipeStripe\Accounts\Order\OrderExtension;
 use SwipeStripe\Order\Checkout\CheckoutForm;
+use SwipeStripe\Order\Order;
 
 /**
  * Class CheckoutFormExtension
@@ -41,6 +43,16 @@ class CheckoutFormExtension extends Extension
     }
 
     /**
+     *
+     */
+    public function beforeLoadDataFromCart(): void
+    {
+        /** @var Order|OrderExtension $cart */
+        $cart = $this->owner->getCart();
+        $cart->populateCustomerDefaults(Security::getCurrentUser());
+    }
+
+    /**
      * @param FieldList $fields
      */
     public function updateFields(FieldList $fields): void
@@ -63,13 +75,13 @@ class CheckoutFormExtension extends Extension
      */
     public function beforeInitPayment(array $data): void
     {
-        if (Security::getCurrentUser() || $data[static::GUEST_OR_ACCOUNT_FIELD] !== static::CHECKOUT_CREATE_ACCOUNT) {
-            return;
+        if (Security::getCurrentUser() === null && $data[static::GUEST_OR_ACCOUNT_FIELD] === static::CHECKOUT_CREATE_ACCOUNT) {
+            $newAccount = $this->createCustomerAccount($data);
+            $this->identityStore->logIn($newAccount, false, $this->owner->getController()->getRequest());
+            Security::setCurrentUser($newAccount);
         }
 
-        $account = $this->createCustomerAccount($data);
-        $this->identityStore->logIn($account, false, $this->owner->getController()->getRequest());
-        Security::setCurrentUser($account);
+        $this->owner->getCart()->MemberID = Security::getCurrentUser() ? Security::getCurrentUser()->ID : 0;
     }
 
     /**
@@ -84,7 +96,7 @@ class CheckoutFormExtension extends Extension
         $member->Email = $data['CustomerEmail'];
         $member->setName($data['CustomerName']);
         $member->changePassword($data[static::ACCOUNT_PASSWORD_FIELD]['_Password'], false);
-        $member->DefaultBillingAddress->copyFrom($this->owner->getCart()->BillingAddress);
+        $member->DefaultBillingAddress->copyFromArray($data, 'BillingAddress');
 
         $member->setField(AccountCreationEmail::SEND_EMAIL_FLAG, true);
         $member->write();

@@ -12,8 +12,16 @@ SwipeStripe\Order\Checkout\CheckoutFormValidator:
 
 SilverStripe\Security\Member:
   extensions:
-  - SwipeStripe\Accounts\MemberExtension
+  - SwipeStripe\Accounts\Customer\MemberExtension
 
 SwipeStripe\Order\Order:
   extensions:
   - SwipeStripe\Accounts\Order\OrderExtension
+
+SwipeStripe\Order\ViewOrderPage:
+  extensions:
+  - SwipeStripe\Accounts\Order\ViewOrderPageExtension
+
+SwipeStripe\Order\ViewOrderPageController:
+  extensions:
+  - SwipeStripe\Accounts\Order\ViewOrderPageControllerExtension
