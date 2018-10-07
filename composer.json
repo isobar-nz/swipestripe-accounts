@@ -1,5 +1,5 @@
 {
-    "name": "swipestripe/accounts",
+    "name": "swipestripe/swipestripe-accounts",
     "description": "Customer accounts module for SwipeStripe.",
     "type": "silverstripe-vendormodule",
     "authors": [
