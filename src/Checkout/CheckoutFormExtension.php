@@ -75,28 +75,30 @@ class CheckoutFormExtension extends Extension
      */
     public function beforeInitPayment(array $data): void
     {
+        $cart = $this->owner->getCart();
+
         if (Security::getCurrentUser() === null && $data[static::GUEST_OR_ACCOUNT_FIELD] === static::CHECKOUT_CREATE_ACCOUNT) {
-            $newAccount = $this->createCustomerAccount($data);
+            $newAccount = $this->createCustomerAccount($cart, $data);
             $this->identityStore->logIn($newAccount, false, $this->owner->getController()->getRequest());
             Security::setCurrentUser($newAccount);
         }
 
-        $this->owner->getCart()->MemberID = Security::getCurrentUser() ? Security::getCurrentUser()->ID : 0;
+        $cart->MemberID = Security::getCurrentUser() ? Security::getCurrentUser()->ID : 0;
     }
 
     /**
+     * @param Order $cart
      * @param array $data
      * @return Member
-     * @throws \SilverStripe\ORM\ValidationException
      */
-    protected function createCustomerAccount(array $data): Member
+    protected function createCustomerAccount(Order $cart, array $data): Member
     {
         /** @var Member|MemberExtension $member */
         $member = Member::create();
         $member->Email = $data['CustomerEmail'];
         $member->setName($data['CustomerName']);
         $member->changePassword($data[static::ACCOUNT_PASSWORD_FIELD]['_Password'], false);
-        $member->DefaultBillingAddress->copyFromArray($data, 'BillingAddress');
+        $member->DefaultBillingAddress->setValue($cart->BillingAddress);
 
         $member->setField(AccountCreationEmail::SEND_EMAIL_FLAG, true);
         $member->write();
