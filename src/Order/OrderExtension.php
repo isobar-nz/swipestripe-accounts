@@ -53,7 +53,7 @@ class OrderExtension extends DataExtension
         $this->owner->MemberID = $member->ID;
         $this->owner->CustomerName = $member->getName();
         $this->owner->CustomerEmail = $member->Email;
-        $this->owner->BillingAddress->copyFrom($member->DefaultBillingAddress);
+        $this->owner->BillingAddress->setValue($member->DefaultBillingAddress);
     }
 
     /**
