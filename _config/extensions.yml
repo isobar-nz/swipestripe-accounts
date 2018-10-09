@@ -6,6 +6,10 @@ SwipeStripe\Order\Checkout\CheckoutForm:
   extensions:
   - SwipeStripe\Accounts\Checkout\CheckoutFormExtension
 
+SwipeStripe\Order\Checkout\CheckoutFormRequestHandler:
+  extensions:
+  - SwipeStripe\Accounts\Checkout\CheckoutFormRequestHandlerExtension
+
 SwipeStripe\Order\Checkout\CheckoutFormValidator:
   extensions:
   - SwipeStripe\Accounts\Checkout\CheckoutFormValidatorExtension
