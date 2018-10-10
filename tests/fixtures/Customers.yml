@@ -1,3 +1,8 @@
 SilverStripe\Security\Member:
   customer:
     Email: customer@example.org
+    OrderStatusNotifications: true
+
+  customer-no-notifications:
+    Email: no.notifications@example.org
+    OrderStatusNotifications: false
