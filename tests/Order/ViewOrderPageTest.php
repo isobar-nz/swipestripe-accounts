@@ -70,9 +70,7 @@ class ViewOrderPageTest extends FunctionalTest
     public function testCantViewCartAsOrder()
     {
         /** @var Order|OrderExtension $order */
-        $order = Order::create();
-        $order->IsCart = true;
-        $order->write();
+        $order = Order::singleton()->createCart();
 
         $orderUrlWithoutToken = $this->viewOrderPage->Link("{$order->ID}");
         $orderUrlWithToken = $this->viewOrderPage->Link("{$order->ID}/{$order->GuestToken}");

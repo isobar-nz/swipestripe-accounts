@@ -15,6 +15,7 @@ use SwipeStripe\ORM\FieldType\DBAddress;
  * @package SwipeStripe\Accounts
  * @property Member|MemberExtension $owner
  * @property DBAddress $DefaultBillingAddress
+ * @property bool $OrderStatusNotifications
  * @method HasManyList|Order[] Orders()
  */
 class MemberExtension extends DataExtension
@@ -23,7 +24,8 @@ class MemberExtension extends DataExtension
      * @var array
      */
     private static $db = [
-        'DefaultBillingAddress' => DBAddress::class,
+        'DefaultBillingAddress'    => 'Address',
+        'OrderStatusNotifications' => 'Boolean',
     ];
 
     /**
@@ -31,6 +33,13 @@ class MemberExtension extends DataExtension
      */
     private static $has_many = [
         'Orders' => Order::class,
+    ];
+
+    /**
+     * @var array
+     */
+    private static $defaults = [
+        'OrderStatusNotifications' => true,
     ];
 
     /**

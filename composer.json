@@ -12,17 +12,18 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.1",
-        "swipestripe/swipestripe": "5.0.x-dev",
-        "silverstripe/silverstripe-omnipay": "dev-master as 3.x-dev"
+        "swipestripe/swipestripe": "5.0.x-dev"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/littlegiant/silverstripe-swipestripe.git"
+            "url": "https://github.com/littlegiant/silverstripe-swipestripe.git",
+            "no-api": true
         },
         {
             "type": "vcs",
-            "url": "https://github.com/hchokshi/silverstripe-wkhtml.git"
+            "url": "https://github.com/hchokshi/silverstripe-wkhtml.git",
+            "no-api": true
         }
     ],
     "autoload": {
