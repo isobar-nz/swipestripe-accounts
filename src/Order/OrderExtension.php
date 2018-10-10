@@ -15,6 +15,7 @@ use SwipeStripe\Order\Order;
  * @package SwipeStripe\Accounts\Order
  * @property Order|OrderExtension $owner
  * @property int $MemberID
+ * @property-write Member $Member
  * @method Member Member()
  */
 class OrderExtension extends DataExtension

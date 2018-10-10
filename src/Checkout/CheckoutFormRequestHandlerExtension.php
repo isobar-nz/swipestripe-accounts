@@ -10,6 +10,7 @@ use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\AccountCreationEmail;
 use SwipeStripe\Accounts\Customer\MemberExtension;
+use SwipeStripe\Accounts\Order\OrderExtension;
 use SwipeStripe\Order\Checkout\CheckoutForm;
 use SwipeStripe\Order\Checkout\CheckoutFormRequestHandler;
 use SwipeStripe\Order\Order;
@@ -40,6 +41,7 @@ class CheckoutFormRequestHandlerExtension extends Extension
      */
     public function beforeInitPayment(array $data, CheckoutForm $form): void
     {
+        /** @var Order|OrderExtension $cart */
         $cart = $form->getCart();
 
         if (Security::getCurrentUser() === null &&
@@ -49,7 +51,13 @@ class CheckoutFormRequestHandlerExtension extends Extension
             Security::setCurrentUser($newAccount);
         }
 
-        $cart->MemberID = Security::getCurrentUser() ? Security::getCurrentUser()->ID : 0;
+        /** @var Member|MemberExtension|null $currentUser */
+        $currentUser = Security::getCurrentUser();
+        $cart->Member = $currentUser;
+
+        if ($currentUser !== null) {
+            $currentUser->addToCustomersGroup();
+        }
     }
 
     /**

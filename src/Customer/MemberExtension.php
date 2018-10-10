@@ -20,6 +20,9 @@ use SwipeStripe\ORM\FieldType\DBAddress;
  */
 class MemberExtension extends DataExtension
 {
+    const CUSTOMERS_GROUP = 'swipestripe-customers';
+    const CUSTOMERS_GROUP_TITLE = 'SwipeStripe Customers';
+
     /**
      * @var array
      */
@@ -54,5 +57,14 @@ class MemberExtension extends DataExtension
             $this->owner->setField(AccountCreationEmail::SEND_EMAIL_FLAG, false);
             AccountCreationEmail::create($this->owner)->send();
         }
+    }
+
+    /**
+     * @return Member|MemberExtension
+     */
+    public function addToCustomersGroup(): Member
+    {
+        $this->owner->addToGroupByCode(static::CUSTOMERS_GROUP, static::CUSTOMERS_GROUP_TITLE);
+        return $this->owner;
     }
 }
