@@ -51,6 +51,9 @@ class AccountSettingsForm extends Form
         return FieldList::create(
             $this->member->dbObject('Email')->scaffoldFormField()
                 ->setReadonly(true),
+            $this->member->dbObject('OrderStatusNotifications')
+                ->scaffoldFormField(_t(self::class . '.OrderStatusNotifications',
+                    'Send me email notifications for important order updates')),
             $this->member->DefaultBillingAddress->scaffoldFormField(),
             ConfirmedPasswordField::create('Password')
                 ->setRequireExistingPassword(true)

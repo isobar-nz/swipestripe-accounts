@@ -22,6 +22,10 @@ SwipeStripe\Order\Order:
   extensions:
   - SwipeStripe\Accounts\Order\OrderExtension
 
+SwipeStripe\Order\Status\OrderStatusUpdate:
+  extensions:
+  - SwipeStripe\Accounts\Order\OrderStatusUpdateExtension
+
 SwipeStripe\Order\ViewOrderPage:
   extensions:
   - SwipeStripe\Accounts\Order\ViewOrderPageExtension
