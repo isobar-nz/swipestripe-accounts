@@ -6,7 +6,9 @@ namespace SwipeStripe\Accounts\Customer;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\HasManyList;
 use SilverStripe\Security\Member;
+use SilverStripe\Security\Permission;
 use SwipeStripe\Accounts\AccountCreationEmail;
+use SwipeStripe\Accounts\SwipeStripeAccountPermissions;
 use SwipeStripe\Order\Order;
 use SwipeStripe\ORM\FieldType\DBAddress;
 
@@ -20,6 +22,9 @@ use SwipeStripe\ORM\FieldType\DBAddress;
  */
 class MemberExtension extends DataExtension
 {
+    const CUSTOMERS_GROUP = 'swipestripe-customers';
+    const CUSTOMERS_GROUP_TITLE = 'SwipeStripe Customers';
+
     /**
      * @var array
      */
@@ -54,5 +59,44 @@ class MemberExtension extends DataExtension
             $this->owner->setField(AccountCreationEmail::SEND_EMAIL_FLAG, false);
             AccountCreationEmail::create($this->owner)->send();
         }
+    }
+
+    /**
+     * @return Member|MemberExtension
+     */
+    public function addToCustomersGroup(): Member
+    {
+        $this->owner->addToGroupByCode(static::CUSTOMERS_GROUP, static::CUSTOMERS_GROUP_TITLE);
+        return $this->owner;
+    }
+
+    /**
+     * @param Member $member
+     * @return bool|null
+     */
+    public function canView(?Member $member): ?bool
+    {
+        if (Permission::checkMember($member, SwipeStripeAccountPermissions::VIEW_CUSTOMERS) &&
+            $this->owner->inGroup(static::CUSTOMERS_GROUP)) {
+
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param null|Member $member
+     * @return bool|null
+     */
+    public function canEdit($member): ?bool
+    {
+        if (Permission::checkMember($member, SwipeStripeAccountPermissions::EDIT_CUSTOMERS) &&
+            $this->owner->inGroup(static::CUSTOMERS_GROUP)) {
+
+            return true;
+        }
+
+        return null;
     }
 }

@@ -1,8 +1,15 @@
+SilverStripe\Security\Group:
+  customers:
+    Code: swipestripe-customers
+    Title: SwipeStripe Customers
+
 SilverStripe\Security\Member:
   customer:
     Email: customer@example.org
     OrderStatusNotifications: true
+    Groups: =>SilverStripe\Security\Group.customers
 
   customer-no-notifications:
     Email: no.notifications@example.org
     OrderStatusNotifications: false
+    Groups: =>SilverStripe\Security\Group.customers
