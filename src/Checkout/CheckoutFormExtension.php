@@ -18,6 +18,12 @@ use SwipeStripe\Order\Order;
  */
 class CheckoutFormExtension extends Extension
 {
+    /**
+     * @config
+     * @var bool
+     */
+    private static $enable_guest_checkout = true;
+
     const GUEST_OR_ACCOUNT_FIELD = 'GuestOrAccount';
     const ACCOUNT_PASSWORD_FIELD = 'AccountPassword';
 
@@ -43,11 +49,32 @@ class CheckoutFormExtension extends Extension
             return;
         }
 
-        $fields->add(OptionsetField::create(static::GUEST_OR_ACCOUNT_FIELD, '', [
-            static::CHECKOUT_GUEST          => 'Checkout as guest',
-            static::CHECKOUT_CREATE_ACCOUNT => 'Create an account',
-        ], static::CHECKOUT_CREATE_ACCOUNT));
+        if ($this->owner->guestCheckoutEnabled()) {
+            $fields->add(OptionsetField::create(static::GUEST_OR_ACCOUNT_FIELD, '', [
+                static::CHECKOUT_GUEST          => 'Checkout as guest',
+                static::CHECKOUT_CREATE_ACCOUNT => 'Create an account',
+            ], static::CHECKOUT_CREATE_ACCOUNT));
+        }
 
         $fields->add(CheckoutPasswordField::create(static::ACCOUNT_PASSWORD_FIELD));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGuestCheckout(): bool
+    {
+        $data = $this->owner->getData();
+        return Security::getCurrentUser() === null &&
+            $this->owner->guestCheckoutEnabled() &&
+            $data[static::GUEST_OR_ACCOUNT_FIELD] === static::CHECKOUT_GUEST;
+    }
+
+    /**
+     * @return bool
+     */
+    public function guestCheckoutEnabled(): bool
+    {
+        return CheckoutForm::config()->get('enable_guest_checkout');
     }
 }

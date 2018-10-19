@@ -44,8 +44,7 @@ class CheckoutFormRequestHandlerExtension extends Extension
         /** @var Order|OrderExtension $cart */
         $cart = $form->getCart();
 
-        if (Security::getCurrentUser() === null &&
-            $data[CheckoutFormExtension::GUEST_OR_ACCOUNT_FIELD] === CheckoutFormExtension::CHECKOUT_CREATE_ACCOUNT) {
+        if (Security::getCurrentUser() === null && !$form->isGuestCheckout()) {
             $newAccount = $this->createCustomerAccount($cart, $data);
             $this->identityStore->logIn($newAccount, false, $form->getController()->getRequest());
             Security::setCurrentUser($newAccount);
