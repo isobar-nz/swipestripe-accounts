@@ -58,6 +58,7 @@ class ViewOrderPageTest extends FunctionalTest
         $order = Order::create();
         $order->IsCart = false;
         $order->MemberID = $this->idFromFixture(Member::class, 'customer');
+        $order->Lock(false);
         $order->write();
 
         $this->assertStringStartsWith($this->viewOrderPage->Link(), $order->Link());
@@ -97,6 +98,7 @@ class ViewOrderPageTest extends FunctionalTest
             $order = Order::create();
             $order->IsCart = false;
             $order->MemberID = $this->customerMember->ID;
+            $order->Lock(false);
             $order->write();
 
             // Can't view account order with or without token
@@ -125,6 +127,7 @@ class ViewOrderPageTest extends FunctionalTest
         $order = Order::create();
         $order->IsCart = false;
         $order->MemberID = $this->customerMember->ID;
+        $order->Lock(false);
         $order->write();
 
         $orderUrlWithoutToken = $this->viewOrderPage->Link("{$order->ID}");
@@ -163,8 +166,11 @@ class ViewOrderPageTest extends FunctionalTest
     protected function withAutoFollowRedirection(bool $value, callable $function): void
     {
         $original = $this->autoFollowRedirection;
-        $this->autoFollowRedirection = $value;
-        $function();
-        $this->autoFollowRedirection = $original;
+        try {
+            $this->autoFollowRedirection = $value;
+            $function();
+        } finally {
+            $this->autoFollowRedirection = $original;
+        }
     }
 }
