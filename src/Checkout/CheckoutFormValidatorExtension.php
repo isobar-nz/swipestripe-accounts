@@ -28,13 +28,15 @@ class CheckoutFormValidatorExtension extends Extension
             return;
         }
 
-        $guestOrAccount = $data[CheckoutFormExtension::GUEST_OR_ACCOUNT_FIELD];
+        if ($form->guestCheckoutEnabled()) {
+            $this->owner->addRequiredField(CheckoutFormExtension::GUEST_OR_ACCOUNT_FIELD);
+        }
+
         /** @var CheckoutPasswordField $passwordField */
         $passwordField = $form->Fields()->dataFieldByName(CheckoutFormExtension::ACCOUNT_PASSWORD_FIELD);
-        $passwordField->canBeEmpty = $guestOrAccount !== CheckoutFormExtension::CHECKOUT_CREATE_ACCOUNT; // Allow empty for guest/unselected
-        $passwordField->setMustBeEmpty($guestOrAccount === CheckoutFormExtension::CHECKOUT_GUEST); // Must be empty for guest
-
-        $this->owner->addRequiredField(CheckoutFormExtension::GUEST_OR_ACCOUNT_FIELD);
+        // Password must be empty for guest - if you type a password, you probably meant to select "create account"
+        $passwordField->canBeEmpty = $form->isGuestCheckout();
+        $passwordField->setMustBeEmpty($form->isGuestCheckout());
     }
 
     /**
@@ -43,7 +45,7 @@ class CheckoutFormValidatorExtension extends Extension
      */
     public function validate(CheckoutForm $form, array $data): void
     {
-        if (Security::getCurrentUser() || $data[CheckoutFormExtension::GUEST_OR_ACCOUNT_FIELD] !== CheckoutFormExtension::CHECKOUT_CREATE_ACCOUNT) {
+        if (Security::getCurrentUser() || $form->isGuestCheckout()) {
             return;
         }
 
