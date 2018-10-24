@@ -18,11 +18,11 @@ use SwipeStripe\Order\ViewOrderPageController;
 class ViewOrderPageControllerExtension extends Extension
 {
     /**
+     * @param HTTPResponse $response
      * @param null|Order $order
      * @param null|Member $currentUser
-     * @param HTTPResponse $response
      */
-    public function updateDisallowedResponse(?Order &$order, ?Member &$currentUser, HTTPResponse &$response): void
+    public function updateDisallowedResponse(HTTPResponse &$response, ?Order &$order, ?Member &$currentUser): void
     {
         if ($currentUser === null) {
             $response = Security::permissionFailure($this->owner);

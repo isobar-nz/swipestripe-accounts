@@ -31,12 +31,10 @@ class CheckoutFormExtension extends Extension
     const CHECKOUT_CREATE_ACCOUNT = 'Account';
 
     /**
-     *
+     * @param Order|OrderExtension $cart
      */
-    public function beforeLoadDataFromCart(): void
+    public function beforeLoadDataFromCart(Order $cart): void
     {
-        /** @var Order|OrderExtension $cart */
-        $cart = $this->owner->getCart();
         $cart->populateCustomerDefaults(Security::getCurrentUser());
     }
 
