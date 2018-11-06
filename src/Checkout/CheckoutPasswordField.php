@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace SwipeStripe\Accounts\Checkout;
 
 use SilverStripe\Forms\ConfirmedPasswordField;
+use SilverStripe\Forms\Validator;
 
 /**
  * Class CheckoutPasswordField
@@ -18,6 +19,7 @@ class CheckoutPasswordField extends ConfirmedPasswordField
 
     /**
      * @inheritDoc
+     * @param Validator $validator
      */
     public function validate($validator)
     {
