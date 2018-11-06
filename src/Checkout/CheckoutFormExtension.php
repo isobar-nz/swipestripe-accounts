@@ -8,13 +8,13 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\Order\OrderExtension;
-use SwipeStripe\Order\Checkout\CheckoutForm;
+use SwipeStripe\Order\Checkout\CheckoutFormInterface;
 use SwipeStripe\Order\Order;
 
 /**
  * Class CheckoutFormExtension
  * @package SwipeStripe\Accounts\Checkout
- * @property CheckoutForm|CheckoutFormExtension $owner
+ * @property CheckoutFormInterface|CheckoutFormExtension $owner
  */
 class CheckoutFormExtension extends Extension
 {
@@ -73,6 +73,6 @@ class CheckoutFormExtension extends Extension
      */
     public function guestCheckoutEnabled(): bool
     {
-        return CheckoutForm::config()->get('enable_guest_checkout');
+        return $this->owner->config()->get('enable_guest_checkout');
     }
 }

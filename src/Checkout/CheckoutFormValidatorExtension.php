@@ -8,7 +8,7 @@ use SilverStripe\Core\Extension;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
-use SwipeStripe\Order\Checkout\CheckoutForm;
+use SwipeStripe\Order\Checkout\CheckoutFormInterface;
 use SwipeStripe\Order\Checkout\CheckoutFormValidator;
 
 /**
@@ -19,10 +19,10 @@ use SwipeStripe\Order\Checkout\CheckoutFormValidator;
 class CheckoutFormValidatorExtension extends Extension
 {
     /**
-     * @param CheckoutForm|CheckoutFormExtension $form
+     * @param CheckoutFormInterface|CheckoutFormExtension $form
      * @param array $data
      */
-    public function beforeRequiredFields(CheckoutForm $form, array $data): void
+    public function beforeRequiredFields(CheckoutFormInterface $form, array $data): void
     {
         if (Security::getCurrentUser()) {
             return;
@@ -40,10 +40,10 @@ class CheckoutFormValidatorExtension extends Extension
     }
 
     /**
-     * @param CheckoutForm|CheckoutFormExtension $form
+     * @param CheckoutFormInterface|CheckoutFormExtension $form
      * @param array $data
      */
-    public function validate(CheckoutForm $form, array $data): void
+    public function validate(CheckoutFormInterface $form, array $data): void
     {
         if (Security::getCurrentUser() || $form->isGuestCheckout()) {
             return;

@@ -9,8 +9,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SwipeStripe\Accounts\AccountCreationEmail;
 use SwipeStripe\Accounts\SwipeStripeAccountPermissions;
+use SwipeStripe\Address\DBAddress;
 use SwipeStripe\Order\Order;
-use SwipeStripe\ORM\FieldType\DBAddress;
 
 /**
  * Class MemberExtension

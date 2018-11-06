@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace SwipeStripe\Accounts\Checkout;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Security\IdentityStore;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use SwipeStripe\Accounts\AccountCreationEmail;
 use SwipeStripe\Accounts\Customer\MemberExtension;
 use SwipeStripe\Accounts\Order\OrderExtension;
-use SwipeStripe\Order\Checkout\CheckoutForm;
+use SwipeStripe\Order\Checkout\CheckoutFormInterface;
 use SwipeStripe\Order\Checkout\CheckoutFormRequestHandler;
 use SwipeStripe\Order\Order;
 
@@ -32,14 +31,14 @@ class CheckoutFormRequestHandlerExtension extends Extension
      */
     public function __construct()
     {
-        $this->identityStore = Injector::inst()->get(IdentityStore::class);
+        $this->identityStore = singleton(IdentityStore::class);
     }
 
     /**
-     * @param CheckoutForm|CheckoutFormExtension $form
+     * @param CheckoutFormInterface|CheckoutFormExtension $form
      * @param array $data
      */
-    public function beforeInitPayment(CheckoutForm $form, array $data): void
+    public function beforeInitPayment(CheckoutFormInterface $form, array $data): void
     {
         /** @var Order|OrderExtension $cart */
         $cart = $form->getCart();
