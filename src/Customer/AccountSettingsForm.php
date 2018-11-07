@@ -48,7 +48,7 @@ class AccountSettingsForm extends Form
      */
     protected function buildFields(): FieldList
     {
-        return FieldList::create(
+        $fields = FieldList::create(
             $this->member->dbObject('Email')
                 ->scaffoldFormField(_t(self::class . '.Email', 'Email'))
                 ->setReadonly(true),
@@ -62,6 +62,9 @@ class AccountSettingsForm extends Form
                 ->setRequireExistingPassword(true)
                 ->setCanBeEmpty(true)
         );
+
+        $this->extend('updateFields', $fields);
+        return $fields;
     }
 
     /**
@@ -69,9 +72,13 @@ class AccountSettingsForm extends Form
      */
     protected function buildActions(): FieldList
     {
-        return FieldList::create(
+        $actions = FieldList::create(
             FormAction::create('SaveChanges', _t(self::class . '.SAVE_CHANGES', 'Save Changes'))
         );
+
+        $this->extend('updateActions', $actions);
+        return $actions;
+    }
     }
 
     /**
