@@ -24,9 +24,16 @@ en:
     SINGULARNAME: 'Account Settings Page'
   SwipeStripe\Accounts\Customer\Admin\CustomerAdmin:
     MENUTITLE: Customers
+  SwipeStripe\Accounts\Customer\Layout\MyOrdersPage:
+    DATE: Date
+    DOWNLOAD_RECEIPT_PDF: 'Download Receipt (PDF)'
+    ITEMS: Items
   SwipeStripe\Accounts\Customer\MyOrdersPage:
     PLURALNAME: 'My Orders Pages'
     PLURALS:
       one: 'A My Orders Page'
       other: '{count} My Orders Pages'
     SINGULARNAME: 'My Orders Page'
+  SwipeStripe\Accounts\Layout\AccountCreationEmail:
+    ACCOUNT_CREATED: 'Your <a href="{link}">{site}</a> account has been created.'
+    GREETING: 'Hey {name},'
