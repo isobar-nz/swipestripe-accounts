@@ -1,0 +1,7 @@
+---
+Name: swipestripe-accounts-injector
+---
+
+SilverStripe\Core\Injector\Injector:
+  SwipeStripe\Accounts\Customer\AccountSettingsFormInterface:
+    class: SwipeStripe\Accounts\Customer\AccountSettingsForm

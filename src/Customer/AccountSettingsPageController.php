@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace SwipeStripe\Accounts\Customer;
 
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Security\Security;
 
 /**
@@ -19,10 +20,10 @@ class AccountSettingsPageController extends \PageController
     ];
 
     /**
-     * @return AccountSettingsForm
+     * @return AccountSettingsFormInterface
      */
-    public function AccountSettingsForm(): AccountSettingsForm
+    public function AccountSettingsForm(): AccountSettingsFormInterface
     {
-        return AccountSettingsForm::create(Security::getCurrentUser(), $this, __FUNCTION__);
+        return Injector::inst()->create(Security::getCurrentUser(), $this, __FUNCTION__);
     }
 }

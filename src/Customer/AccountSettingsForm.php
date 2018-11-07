@@ -16,7 +16,7 @@ use SilverStripe\Security\Member;
  * Class AccountSettingsForm
  * @package SwipeStripe\Accounts\Customer
  */
-class AccountSettingsForm extends Form
+class AccountSettingsForm extends Form implements AccountSettingsFormInterface
 {
     /**
      * @var Member|MemberExtension
@@ -34,7 +34,7 @@ class AccountSettingsForm extends Form
         RequestHandler $controller = null,
         string $name = self::DEFAULT_NAME
     ) {
-        $this->member = $member;
+        $this->setMember($member);
 
         parent::__construct($controller, $name, $this->buildFields(), $this->buildActions());
 
@@ -79,7 +79,6 @@ class AccountSettingsForm extends Form
         $this->extend('updateActions', $actions);
         return $actions;
     }
-    }
 
     /**
      * @return HTTPResponse
@@ -92,5 +91,22 @@ class AccountSettingsForm extends Form
         $this->sessionMessage(_t(self::class . '.CHANGES_SAVED', 'Your changes were saved successfully.'),
             ValidationResult::TYPE_GOOD);
         return $this->getController()->redirectBack();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMember(): Member
+    {
+        return $this->member;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setMember(Member $member): AccountSettingsFormInterface
+    {
+        $this->message = $member;
+        return $this;
     }
 }
