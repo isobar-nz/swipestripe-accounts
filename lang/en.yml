@@ -10,12 +10,13 @@ en:
   SwipeStripe\Accounts\Checkout\CheckoutPasswordField:
     MUST_BE_EMPTY: 'It looks like you entered a password, but selected to checkout as a guest. Did you mean to select "Create an account"?'
   SwipeStripe\Accounts\Customer\AccountSettingsForm:
-    CHANGES_SAVED: 'Your changes were saved successfully.'
     Email: Email
     OrderStatusNotifications: 'Send me email notifications for important order updates'
     OrderStatusNotifications_Note: 'Updates will always be sent to the billing email address on your order.'
     Password: Password
     SAVE_CHANGES: 'Save Changes'
+  SwipeStripe\Accounts\Customer\AccountSettingsFormRequestHandler:
+    CHANGES_SAVED: 'Your changes were saved successfully.'
   SwipeStripe\Accounts\Customer\AccountSettingsPage:
     PLURALNAME: 'Account Settings Pages'
     PLURALS:

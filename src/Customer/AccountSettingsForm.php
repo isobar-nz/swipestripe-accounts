@@ -81,19 +81,6 @@ class AccountSettingsForm extends Form implements AccountSettingsFormInterface
     }
 
     /**
-     * @return HTTPResponse
-     */
-    public function SaveChanges(): HTTPResponse
-    {
-        $this->saveInto($this->member);
-        $this->member->write();
-
-        $this->sessionMessage(_t(self::class . '.CHANGES_SAVED', 'Your changes were saved successfully.'),
-            ValidationResult::TYPE_GOOD);
-        return $this->getController()->redirectBack();
-    }
-
-    /**
      * @inheritDoc
      */
     public function getMember(): Member
@@ -108,5 +95,13 @@ class AccountSettingsForm extends Form implements AccountSettingsFormInterface
     {
         $this->message = $member;
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function buildRequestHandler()
+    {
+        return AccountSettingsFormRequestHandler::create($this);
     }
 }
