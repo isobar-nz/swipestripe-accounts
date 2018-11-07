@@ -16,7 +16,7 @@ use SilverStripe\Security\Member;
  * Class AccountSettingsForm
  * @package SwipeStripe\Accounts\Customer
  */
-class AccountSettingsForm extends Form
+class AccountSettingsForm extends Form implements AccountSettingsFormInterface
 {
     /**
      * @var Member|MemberExtension
@@ -34,7 +34,7 @@ class AccountSettingsForm extends Form
         RequestHandler $controller = null,
         string $name = self::DEFAULT_NAME
     ) {
-        $this->member = $member;
+        $this->setMember($member);
 
         parent::__construct($controller, $name, $this->buildFields(), $this->buildActions());
 
@@ -48,8 +48,9 @@ class AccountSettingsForm extends Form
      */
     protected function buildFields(): FieldList
     {
-        return FieldList::create(
-            $this->member->dbObject('Email')->scaffoldFormField()
+        $fields = FieldList::create(
+            $this->member->dbObject('Email')
+                ->scaffoldFormField(_t(self::class . '.Email', 'Email'))
                 ->setReadonly(true),
             $this->member->dbObject('OrderStatusNotifications')
                 ->scaffoldFormField(_t(self::class . '.OrderStatusNotifications',
@@ -57,10 +58,13 @@ class AccountSettingsForm extends Form
                 ->setDescription(_t(self::class . '.OrderStatusNotifications_Note', 'Updates will always ' .
                     'be sent to the billing email address on your order.')),
             $this->member->DefaultBillingAddress->scaffoldFormField(),
-            ConfirmedPasswordField::create('Password')
+            ConfirmedPasswordField::create('Password', _t(self::class . '.Password', 'Password'))
                 ->setRequireExistingPassword(true)
                 ->setCanBeEmpty(true)
         );
+
+        $this->extend('updateFields', $fields);
+        return $fields;
     }
 
     /**
@@ -68,20 +72,36 @@ class AccountSettingsForm extends Form
      */
     protected function buildActions(): FieldList
     {
-        return FieldList::create(
-            FormAction::create('SaveChanges', 'Save Changes')
+        $actions = FieldList::create(
+            FormAction::create('SaveChanges', _t(self::class . '.SAVE_CHANGES', 'Save Changes'))
         );
+
+        $this->extend('updateActions', $actions);
+        return $actions;
     }
 
     /**
-     * @return HTTPResponse
+     * @inheritDoc
      */
-    public function SaveChanges(): HTTPResponse
+    public function getMember(): Member
     {
-        $this->saveInto($this->member);
-        $this->member->write();
+        return $this->member;
+    }
 
-        $this->sessionMessage('Your changes were saved successfully.', ValidationResult::TYPE_GOOD);
-        return $this->getController()->redirectBack();
+    /**
+     * @inheritDoc
+     */
+    public function setMember(Member $member): AccountSettingsFormInterface
+    {
+        $this->message = $member;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function buildRequestHandler()
+    {
+        return AccountSettingsFormRequestHandler::create($this);
     }
 }
