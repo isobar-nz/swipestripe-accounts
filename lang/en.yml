@@ -1,0 +1,32 @@
+en:
+  SwipeStripe\Accounts\AccountCreationEmail:
+    SUBJECT: 'Your {site} account has been created'
+  SwipeStripe\Accounts\Checkout\CheckoutFormExtension:
+    ACCOUNT_PASSWORD_TITLE: Password
+    CHECKOUT_CREATE_ACCOUNT: 'Create an account'
+    CHECKOUT_GUEST: 'Checkout as guest'
+  SwipeStripe\Accounts\Checkout\CheckoutFormValidatorExtension:
+    EMAIL_TAKEN: 'An account with that email already exists. Do you want to <a href="{login_url}">login</a> instead?'
+  SwipeStripe\Accounts\Checkout\CheckoutPasswordField:
+    MUST_BE_EMPTY: 'It looks like you entered a password, but selected to checkout as a guest. Did you mean to select "Create an account"?'
+  SwipeStripe\Accounts\Customer\AccountSettingsForm:
+    CHANGES_SAVED: 'Your changes were saved successfully.'
+    Email: Email
+    OrderStatusNotifications: 'Send me email notifications for important order updates'
+    OrderStatusNotifications_Note: 'Updates will always be sent to the billing email address on your order.'
+    Password: Password
+    SAVE_CHANGES: 'Save Changes'
+  SwipeStripe\Accounts\Customer\AccountSettingsPage:
+    PLURALNAME: 'Account Settings Pages'
+    PLURALS:
+      one: 'An Account Settings Page'
+      other: '{count} Account Settings Pages'
+    SINGULARNAME: 'Account Settings Page'
+  SwipeStripe\Accounts\Customer\Admin\CustomerAdmin:
+    MENUTITLE: Customers
+  SwipeStripe\Accounts\Customer\MyOrdersPage:
+    PLURALNAME: 'My Orders Pages'
+    PLURALS:
+      one: 'A My Orders Page'
+      other: '{count} My Orders Pages'
+    SINGULARNAME: 'My Orders Page'

@@ -49,12 +49,13 @@ class CheckoutFormExtension extends Extension
 
         if ($this->owner->guestCheckoutEnabled()) {
             $fields->add(OptionsetField::create(static::GUEST_OR_ACCOUNT_FIELD, '', [
-                static::CHECKOUT_GUEST          => 'Checkout as guest',
-                static::CHECKOUT_CREATE_ACCOUNT => 'Create an account',
+                static::CHECKOUT_GUEST          => _t(self::class . '.CHECKOUT_GUEST', 'Checkout as guest'),
+                static::CHECKOUT_CREATE_ACCOUNT => _t(self::class . '.CHECKOUT_CREATE_ACCOUNT', 'Create an account'),
             ], static::CHECKOUT_CREATE_ACCOUNT));
         }
 
-        $fields->add(CheckoutPasswordField::create(static::ACCOUNT_PASSWORD_FIELD));
+        $fields->add(CheckoutPasswordField::create(static::ACCOUNT_PASSWORD_FIELD,
+            _t(self::class . '.ACCOUNT_PASSWORD_TITLE', 'Password')));
     }
 
     /**

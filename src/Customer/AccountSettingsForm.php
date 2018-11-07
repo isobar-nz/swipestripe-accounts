@@ -49,7 +49,8 @@ class AccountSettingsForm extends Form
     protected function buildFields(): FieldList
     {
         return FieldList::create(
-            $this->member->dbObject('Email')->scaffoldFormField()
+            $this->member->dbObject('Email')
+                ->scaffoldFormField(_t(self::class . '.Email', 'Email'))
                 ->setReadonly(true),
             $this->member->dbObject('OrderStatusNotifications')
                 ->scaffoldFormField(_t(self::class . '.OrderStatusNotifications',
@@ -57,7 +58,7 @@ class AccountSettingsForm extends Form
                 ->setDescription(_t(self::class . '.OrderStatusNotifications_Note', 'Updates will always ' .
                     'be sent to the billing email address on your order.')),
             $this->member->DefaultBillingAddress->scaffoldFormField(),
-            ConfirmedPasswordField::create('Password')
+            ConfirmedPasswordField::create('Password', _t(self::class . '.Password', 'Password'))
                 ->setRequireExistingPassword(true)
                 ->setCanBeEmpty(true)
         );
@@ -69,7 +70,7 @@ class AccountSettingsForm extends Form
     protected function buildActions(): FieldList
     {
         return FieldList::create(
-            FormAction::create('SaveChanges', 'Save Changes')
+            FormAction::create('SaveChanges', _t(self::class . '.SAVE_CHANGES', 'Save Changes'))
         );
     }
 
@@ -81,7 +82,8 @@ class AccountSettingsForm extends Form
         $this->saveInto($this->member);
         $this->member->write();
 
-        $this->sessionMessage('Your changes were saved successfully.', ValidationResult::TYPE_GOOD);
+        $this->sessionMessage(_t(self::class . '.CHANGES_SAVED', 'Your changes were saved successfully.'),
+            ValidationResult::TYPE_GOOD);
         return $this->getController()->redirectBack();
     }
 }
