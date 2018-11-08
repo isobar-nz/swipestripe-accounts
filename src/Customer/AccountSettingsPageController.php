@@ -24,6 +24,6 @@ class AccountSettingsPageController extends \PageController
      */
     public function AccountSettingsForm(): AccountSettingsFormInterface
     {
-        return Injector::inst()->create(Security::getCurrentUser(), $this, __FUNCTION__);
+        return Injector::inst()->create(AccountSettingsFormInterface::class, Security::getCurrentUser(), $this, __FUNCTION__);
     }
 }
