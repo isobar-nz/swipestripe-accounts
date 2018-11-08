@@ -9,7 +9,6 @@ use SilverStripe\Forms\ConfirmedPasswordField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
-use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Member;
 
 /**
@@ -93,7 +92,7 @@ class AccountSettingsForm extends Form implements AccountSettingsFormInterface
      */
     public function setMember(Member $member): AccountSettingsFormInterface
     {
-        $this->message = $member;
+        $this->member = $member;
         return $this;
     }
 
