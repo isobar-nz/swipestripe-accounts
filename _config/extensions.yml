@@ -4,32 +4,32 @@ Name: swipestripe-accounts-extensions
 
 SwipeStripe\Order\Checkout\CheckoutForm:
   extensions:
-  - SwipeStripe\Accounts\Checkout\CheckoutFormExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Checkout\CheckoutFormExtension
 
 SwipeStripe\Order\Checkout\CheckoutFormRequestHandler:
   extensions:
-  - SwipeStripe\Accounts\Checkout\CheckoutFormRequestHandlerExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Checkout\CheckoutFormRequestHandlerExtension
 
 SwipeStripe\Order\Checkout\CheckoutFormValidator:
   extensions:
-  - SwipeStripe\Accounts\Checkout\CheckoutFormValidatorExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Checkout\CheckoutFormValidatorExtension
 
 SilverStripe\Security\Member:
   extensions:
-  - SwipeStripe\Accounts\Customer\MemberExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Customer\MemberExtension
 
 SwipeStripe\Order\Order:
   extensions:
-  - SwipeStripe\Accounts\Order\OrderExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Order\OrderExtension
 
 SwipeStripe\Order\Status\OrderStatusUpdate:
   extensions:
-  - SwipeStripe\Accounts\Order\OrderStatusUpdateExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Order\OrderStatusUpdateExtension
 
 SwipeStripe\Order\ViewOrderPage:
   extensions:
-  - SwipeStripe\Accounts\Order\ViewOrderPageExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Order\ViewOrderPageExtension
 
 SwipeStripe\Order\ViewOrderPageController:
   extensions:
-  - SwipeStripe\Accounts\Order\ViewOrderPageControllerExtension
+    swipestripe-accounts: SwipeStripe\Accounts\Order\ViewOrderPageControllerExtension
